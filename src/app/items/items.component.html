@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h6 class="text-center">Item</h6><br/>
+    <form (ngSubmit)="newItem(newItemForm.value)" [formGroup]="newItemForm">
+      <input type="hidden" formControlName="id">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" formControlName="name" id="name" placeholder="Name" required>
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" class="form-control" formControlName="date" id="date" placeholder="Date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+      </div>
+      <div class="form-group">
+        <label for="time">Time</label>
+        <input type="time" class="form-control" formControlName="time" id="time" placeholder="Time" required>
+      </div>
+      <div class="form-group">
+        <label for="email1">Email 1</label>
+        <input type="email" class="form-control" formControlName="email1" id="email1" placeholder="email1" required>
+      </div>
+      <div class="form-group">
+        <label for="email1">Email 2 (optional)</label>
+        <input type="email" class="form-control" formControlName="email2" id="email2" placeholder="email2">
+      </div>
+      <div class="form-group">
+      <label for="email3">Email 3 (optional)</label>
+      <input type="email" class="form-control" formControlName="email3" id="email3" placeholder="email3">
+    </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" minlength="10" maxlength="10" class="form-control" formControlName="phone" id="phone" placeholder="phone" required>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-outline-primary" [disabled]="!newItemForm.valid">{{(currentStatus == 1) ? 'Add' : 'Modify'}}</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="clearForm()">Clean</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-sm-8">
+   <h6 class="text-center">Existing Items</h6><br/>
+   <table class="table table-sm table-striped">
+     <thead>
+       <tr>
+         <th scope="col">name</th>
+         <th scope="col">date</th>
+         <th scope="col">time</th>
+         <th scope="col">email1</th>
+         <th scope="col">email2</th>
+         <th scope="col">email3</th>
+         <th scope="col">phone</th>
+         <th scope="col"></th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let item of items">
+         <td>{{item.data.name}}</td>
+         <td>{{item.data.date}}</td>
+         <td>{{item.data.time}}</td>
+         <td>{{item.data.email1}}</td>
+         <td>{{item.data.email2}}</td>
+         <td>{{item.data.email3}}</td>
+         <td>{{item.data.phone}}</td>
+         <td>
+           <button type="button" class="btn btn-outline-info btn-sm" (click)="editItem(item.id)">
+             <i class="fas fa-pen"></i>
+           </button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem(item.id)">
+             <i class="far fa-trash-alt"></i>
+           </button>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+  </div>
+</div>
